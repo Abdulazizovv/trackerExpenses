@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Hamyonlar' %}
+{% endblock %}
+
+{% block content %}
+
+<!-- for display django messages -->
+{% if messages %}
+  <div class="container mt-4">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">{% trans "Hamyonlar" %}</h2>
+
+    <!-- Display Wallets -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans "Hamyon nomi" %}</th>
+                <th>{% trans "Pul miqdori" %}</th>
+                <th>{% trans "Valyuta" %}</th>
+                <th>{% trans "Amallar" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if wallets %}
+            {% for wallet in wallets %}
+                <tr>
+                    <td>{{ wallet.title }}</td>
+                    <td>{{ wallet.amount }}</td>
+                    <td>{{ wallet.get_currency_display }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editWalletModal{{ wallet.id }}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteWalletModal{{ wallet.id }}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                
+                <!-- Edit Wallet Modal -->
+                <div class="modal fade" id="editWalletModal{{ wallet.id }}" tabindex="-1" role="dialog" aria-labelledby="editWalletModalLabel{{ wallet.id }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="editWalletModalLabel">{% trans "Hamyonni tahrirlash" %}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="editWalletForm" action="{% url 'edit_wallet' %}"> {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="title">{% trans 'Hamyon nomi' %}</label>
+                                    <input type="text" id="title" name="title" value="{{ wallet.title }}" placeholder="{% trans 'masalan, uzcard' %}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount">{% trans 'Pul miqdori' %}</label>
+                                    <input type="number" id="amount" min="0" name="amount" value="{{ wallet.amount }}" required>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="currency">{% trans 'Valyuta' %}</label>
+                                    <select name="currency" id="currency">
+                                        <option value="{{ wallet.currency }}">{{ wallet.currency }}</option>
+                                        {% for currency in currencies %}
+                                            {% if wallet.currency != currency %}
+                                                <option value="{{ currency }}">{{ currency }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <input type="hidden" name="wallet_id" value="{{ wallet.id }}">
+                                <button type="submit" class="btn btn-primary">{% trans 'Saqlash' %}</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Bekor qilish' %}</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Delete Wallet Modal -->
+                <div class="modal fade" id="deleteWalletModal{{ wallet.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteWalletModalLabel{{ wallet.id }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="deleteWalletModalLabel">{% trans 'Hamyonni o`chirish' %}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans 'Hamyonni o`chirasizmi?' %} "{{ wallet.title }}"</p>
+                            <a href="{% url 'delete_wallet' wallet.id %}" class="btn btn-danger">{% trans 'O`chirish' %}</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Bekor qilish' %}</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">{% trans 'Hamyonlar mavjud emas' %}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <!-- Add Wallet Button -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addWalletModal">
+        {% trans 'Hamyon qo\'shish' %}
+    </button>
+
+    <!-- Add Wallet Modal -->
+    <div class="modal fade" id="addWalletModal" tabindex="-1" role="dialog" aria-labelledby="addWalletModalLabel" aria-hidden="true">
+        <!-- Add your add wallet form here -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addWalletModalLabel">{% trans "Hamyon qo'shish" %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" id="editWalletForm" action="{% url 'add_wallet' %}"> {% csrf_token %}
+                    <div class="form-group">
+                        <label for="title">{% trans 'Hamyon nomi' %}</label>
+                        <input type="text" id="title" name="title" value="" placeholder="{% trans 'masalan, uzcard, visa' %}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">{% trans 'Pul miqdori' %}</label>
+                        <input type="number" id="amount" min="0" name="amount" value="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currency">{% trans 'Valyutani tanlang' %}</label>
+                        <select name="currency" id="" required>
+                            {% for currency in currencies %}
+                                <option value="{{ currency }}">{{ currency }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{% trans "Qo'shish" %}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Bekor qilish' %}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,418 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Bosh sahifa' %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .square {
+        width: 200px;
+        height: 100px;
+        margin: 10px;
+    }
+
+    .bg-income {
+        background-color: #007bff;
+    }
+
+    .bg-expense {
+        background-color: #b40f0f;
+    }
+    .bg-left {
+        background-color: #00ef3c;
+    }
+    .modal a{
+        color: aliceblue;
+    }
+    .modal a:hover{
+        color: aliceblue;
+        text-decoration: none;
+    }
+    
+</style>
+
+
+
+{% if messages %}
+  <div class="container mt-4">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="square bg-income justify-content-center align-items-center text-white">
+                            <h4 class="m-0 text-center">+{{ usd_summ }} USD</h4>
+                            <h4 class="m-0 text-center">+{{ rub_summ }} RUB</h4>
+                            <h4 class="m-0 text-center">+{{ uzs_summ }} UZS</h4>
+                        </div>
+                        <button type="button" class="btn btn-primary ml-5" data-toggle="modal" data-target="#addIncomeModal">
+                            {% trans 'Kirim qo`shish' %}
+                        </button>
+
+                    </div>
+                    <div class="col-md-4">
+                       
+                        <div class="square bg-left justify-content-center align-items-center text-white">
+                            <p class="text-center m-0">{% trans 'Qolgan summa' %}</p>
+                            <h5 class="m-0 text-center">{{ left_usd }} USD</h5>
+                            <h5 class="m-0 text-center">{{ left_rub }} RUB</h5>
+                            <h5 class="m-0 text-center">{{ left_uzs }} UZS</h5>
+                        </div>
+                        <a href="{% url 'wallets' %}"><button class="btn btn-primary text-center ml-5">{% trans 'Hamyonlar' %}</button></a>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="square bg-expense justify-content-center align-items-center text-white">
+                            <h4 class="m-0 text-center">-{{ usd_exp }} USD</h4>
+                            <h4 class="m-0 text-center">-{{ rub_exp }} RUB</h4>
+                            <h4 class="m-0 text-center">-{{ uzs_exp }} UZS</h4>
+                        </div>
+                        {% if left_usd or left_rub or left_uzs %}
+                        <button type="button" class="btn btn-danger ml-5" data-toggle="modal" data-target="#addExpensesModal">
+                            {% trans "Chiqim qo`shish" %}
+                        </button>
+                        {% else %}
+                        <p class="text-center">{% trans 'Hamyonlaringizda pul qolmagan' %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for expense-->
+<div class="container mt-5">
+    <div class="modal fade" id="addExpensesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{% trans 'Chiqim qo`shish' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your form for adding expenses goes here -->
+                    <form method="post">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="expenseWallet">{% trans 'Hamyonni tanlang' %}</label>
+                            <select name="expenseWallet" id="">
+                                {% for wallet in wallets %}
+                                <option value="{{wallet.id}}">
+                                    {{wallet.title}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseCategory">{% trans 'Chiqim' %}:</label>
+                            <select name="expenseCategory" id="" required>
+                                {% for reason in reasons %}
+                                <option value="{{reason.id}}">
+                                    {{reason.title}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <a href="{% url 'add_categories' %}" class="btn btn-primary">
+                                {% trans '+' %}
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseAmount">{% trans 'Miqdori' %}:</label>
+                            <input type="number" min="1" class="form-control" name="expenseAmount" id="expenseAmount" placeholder="{% trans 'Chiqim miqdorini kiriting' %}">
+                        </div>
+                        <input type="hidden" name="which" value="expense">
+
+                        <button type="submit" class="btn btn-primary">{% trans 'Tasdiqlash' %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for income-->
+<!-- Kirimlar uchun http request -->
+<div class="container mt-5">
+    <div class="modal fade" id="addIncomeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{% trans 'Kirim qo`shish' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your form for adding expenses goes here -->
+                    <form method="post"> {% csrf_token %}
+                        <div class="form-group">
+                            {% if wallets %}
+                            <label for="incomeWallet">{% trans 'Hamyonni tanlang' %}</label>
+                            <select name="incomeWallet" id="" required>
+                                {% for wallet in wallets %}
+                                <option value="{{wallet.id}}">
+                                    {{wallet.title}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            {% else %}
+                            {% trans "Hamyonlar mavjud emas! Qo'shish uchun ->" %}
+                            <a href="{% url 'wallets' %}" class="btn btn-primary">{% trans "bosing" %}</a>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="incomeCategory">{% trans 'Kirim' %}:</label>
+                            <select name="incomeCategory" id="" required>
+                                {% for category in categories %}
+                                <option value="{{category.id}}">
+                                    {{category.title}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <a href="{% url 'add_categories' %}" class="btn btn-primary">
+                                {% trans '+' %}
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <label for="incomeAmount">{% trans 'Miqdori' %}:</label>
+                            <input type="number" min="1" class="form-control" name="incomeAmount" id="incomeAmount" placeholder="{% trans 'Kirim miqdorini kiriting' %}">
+                        </div>
+                        <input type="hidden" name="which" value="income">
+                        <!-- Add more form fields as needed -->
+
+                        <button type="submit" class="btn btn-primary">{% trans 'Tasdiqlash' %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- linklar -->
+<div class="container mt-5">
+    <nav class="col text-center mb-5 bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'index' %}">
+                {% trans 'Bugungi hisobotlar' %}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'weekly_expenses' %}">
+                {% trans 'Haftalik hisobotlar' %}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'monthly_expenses' %}">
+                {% trans 'Oylik hisobotlar' %}
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#postModal">
+
+                  {% trans 'Tanlangan kun uchun hisobotlar' %}
+                </a>
+              </li>
+          </ul>
+        </div>
+    </nav>
+      <h2 class="text-center text-muted m-5"><i class="fa-solid fa-calendar-days"></i>{{today}}</h2>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">{% trans 'Bugungi kirimlar' %} <i class="fa-solid fa-arrow-down"></i></h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans 'Kategoriya' %}</th>
+                        <th>{% trans 'Miqdor' %}</th>
+                        <th>{% trans 'Valyuta' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if todays_incomes %}
+                    {% for income in todays_incomes %}
+                    <tr>
+                        {% if income.reason.title %}
+                        <td>{{ income.reason.title }}</td>
+                        {% else %}
+                        <td>{% trans 'Yangi hamyon yaratildi' %}</td>
+                        {% endif %}
+                        <td>{{ income.amount }}</td>
+                        <td>{{ income.wallet.currency }}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger delete-expense-btn" data-toggle="modal" data-target="#deleteModal" 
+                            data-expense-id="{{ income.id }}"
+                            data-suffix="income"
+                            data-url="index">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="mb-4">{% trans 'Bugungi chiqimlar' %} <i class="fa-solid fa-arrow-up"></i></h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans 'Kategoriya' %}</th>
+                        <th>{% trans 'Miqdor' %}</th>
+                        <th>{% trans 'Valyuta' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if todays_expenses %}
+                    {% for expense in todays_expenses %}
+                    <tr>
+                        {% if expense.reason.title %}
+                        <td>{{ expense.reason.title }}</td>
+                        {% else %}
+                        <td>{% trans 'Yangi hamyon yaratildi' %}</td>
+                        {% endif %}
+                        <td>{{ expense.amount }}</td>
+                        <td>{{ expense.wallet.currency }}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger delete-expense-btn" data-toggle="modal" data-target="#deleteModal" 
+                            data-expense-id="{{ expense.id }}" 
+                            data-suffix="expense"
+                            data-url="index">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">{% trans 'O\'chirishni tasdiqlash' %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>{% trans 'O\'chirishni xoxlaysizmi?' %}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Bekor qilish' %}</button>
+                <a id="deleteExpenseLink" class="btn btn-danger" href="">
+                    <i class="fas fa-trash"></i> {% trans 'O\'chirish' %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript to update the delete link when the modal is shown
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var suffix = button.data('suffix');
+        var expenseId = button.data('expense-id');
+        var url = button.data('url');
+        var deleteLink = '/delete/' + suffix + '/' + expenseId + '/' + url + '/';  // Replace with your actual delete URL
+        $('#deleteExpenseLink').attr('href', deleteLink);
+    });
+</script>
+
+
+{% else %}
+
+<!-- Agar foydalanuvchi ro'yxatdan o'tmagan bo'lsa ko'rinadigan qism -->
+
+<div class="container">
+  
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="text-danger mt-5">{% trans 'Assalomu alaykum! Xush kelibsiz' %}</h2>
+            <p>{% trans 'Saytimizga xush kelibsiz' %}</p>
+            <p>{% trans 'Biz bilan pullaringizni boshqaring' %}</p>
+            <p>
+                {% trans 'Bizda quyidagi xizmatlar mavjud' %}:
+                <ul>
+                    <li>{% trans 'Hamyonlar boshqarish' %}</li>
+                    <li>{% trans 'Kirimlarni kiritish va boshqarish' %}</li>
+                    <li>{% trans 'Chiqimlarni kiritish va boshqarish' %}</li>
+                    <li>
+                        {% trans 'Hisobotlar' %}:
+                        <ul>
+                            <li>{% trans 'Kunlik' %}</li>
+                            <li>{% trans 'Haftalik' %}</li>
+                            <li>{% trans 'Oylik' %}</li>
+                            <li>{% trans 'Yillik' %}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+            <h3>{% trans 'Xizmatlarimizdan foydalanish uchun tizimga kiring' %}</h3>
+            <a href="{% url 'login' %}"><button class="btn btn-primary">{% trans 'Login' %}</button></a>
+            <span>{%trans 'yoki'%}</span>
+            <a href="{% url 'register' %}"><button class="btn btn-secondary">{% trans "Ro'yxatdan o'tish" %}</button></a>
+        </div>
+
+        <div class="col-md-8 mt-5">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="{% static 'img/money.jpg' %}" alt="First slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="{% static 'img/money1.jpg' %}" alt="Second slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="{% static 'img/money2.jpg' %}" alt="Third slide">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

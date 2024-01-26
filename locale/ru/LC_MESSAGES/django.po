@@ -1,0 +1,496 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-26 09:06+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\account\views.py:23 .\account\views.py:51 .\main\views.py:23
+msgid "Foydalanuvchi nomi yoki parol xato!"
+msgstr "Неверное имя пользователя или пароль!"
+
+#: .\account\views.py:35
+msgid "Foydalanuvchi nomi yoki elektron pochta manzili allaqachon mavjud!"
+msgstr "Имя пользователя или адрес электронной почты уже существует!"
+
+#: .\account\views.py:47
+msgid "Muvaffaqqiyatli!"
+msgstr "Успешный"
+
+#: .\account\views.py:53
+msgid "Parollar bir xil emas!"
+msgstr "Пароли не совпадают!"
+
+#: .\core\settings.py:122
+msgid "Uzbek"
+msgstr "Узбекский"
+
+#: .\core\settings.py:123
+msgid "English"
+msgstr "Английский"
+
+#: .\core\settings.py:124
+msgid "Russian"
+msgstr "Русский"
+
+#: .\main\views.py:132
+msgid "Kirim saqlandi"
+msgstr "Доход сохранен"
+
+#: .\main\views.py:157
+msgid "Chiqim saqlandi"
+msgstr "Расходы сохранены"
+
+#: .\main\views.py:160
+msgid "Hamyoningizdagi pul siz kiritgan miqdordan kam!"
+msgstr "Сумма в вашем кошельке меньше суммы, которую вы положили на депозит!"
+
+#: .\main\views.py:171 .\main\views.py:175
+msgid "Muvaffaqqiyatli o'chirildi"
+msgstr "Удален успешно"
+
+#: .\main\views.py:300
+msgid "Hamyon o'zgartirildi"
+msgstr "Кошелек был изменен."
+
+#: .\main\views.py:302 .\main\views.py:318
+msgid "Nimadir xato ketdi!"
+msgstr "Что-то пошло не так!"
+
+#: .\main\views.py:315
+msgid "Hamyon qo'shildi"
+msgstr "Кошелек добавлен"
+
+#: .\main\views.py:326
+msgid "Hamyon o'chirildi!"
+msgstr "Кошелек удален!"
+
+#: .\main\views.py:341
+msgid "Kirim turi saqlandi"
+msgstr "Тип дохода сохранен."
+
+#: .\main\views.py:345
+msgid "Chiqim turi saqlandi"
+msgstr "Тип расхода сохранен."
+
+#: .\main\views.py:363
+msgid "Kirim turi o'chirildi"
+msgstr "Тип дохода удален."
+
+#: .\main\views.py:368
+msgid "Chiqim turi o'chirildi"
+msgstr "Тип расходов удален."
+
+#: .\templates\auth\login.html:161 .\templates\auth\login.html:169
+#: .\templates\auth\registration.html:178
+msgid "Kirish"
+msgstr "Вход"
+
+#: .\templates\auth\login.html:163 .\templates\auth\login.html:164
+#: .\templates\auth\registration.html:163
+#: .\templates\auth\registration.html:164
+msgid "Foydalanuvchi nomi"
+msgstr "имя пользователя"
+
+#: .\templates\auth\login.html:166 .\templates\auth\login.html:167
+#: .\templates\auth\registration.html:169
+#: .\templates\auth\registration.html:170
+#: .\templates\auth\registration.html:172
+msgid "Parol"
+msgstr "Пароль"
+
+#: .\templates\auth\login.html:172 .\templates\auth\registration.html:161
+#: .\templates\auth\registration.html:175 .\templates\index.html:388
+msgid "Ro'yxatdan o'tish"
+msgstr "Зарегистрироваться"
+
+#: .\templates\auth\registration.html:166
+#: .\templates\auth\registration.html:167
+msgid "Email"
+msgstr "Электронная почта"
+
+#: .\templates\auth\registration.html:173
+msgid "Parolni takror kiriting"
+msgstr "Повторно введите пароль"
+
+#: .\templates\base.html:48
+msgid "Qaysi kun uchun hisobot ko'rmoqchisiz?"
+msgstr "За какой день вы хотели бы увидеть отчет?"
+
+#: .\templates\base.html:58
+msgid "Sanani tanlang"
+msgstr "Выберите дату"
+
+#: .\templates\base.html:101
+msgid "Uy"
+msgstr "Главнaя"
+
+#: .\templates\base.html:106
+msgid "Kategoriyalar"
+msgstr "Категории"
+
+#: .\templates\base.html:109 .\templates\index.html:79
+#: .\templates\wallets.html:5 .\templates\wallets.html:25
+msgid "Hamyonlar"
+msgstr "Кошельки"
+
+#: .\templates\inc_and_exp.html:4
+msgid "Kirim va chiqim turlari"
+msgstr "Виды доходов и расходов"
+
+#: .\templates\inc_and_exp.html:25
+msgid "Kirim turlari"
+msgstr "Виды дохода"
+
+#: .\templates\inc_and_exp.html:30 .\templates\inc_and_exp.html:53
+#: .\templates\inc_and_exp.html:92 .\templates\inc_and_exp.html:124
+msgid "Nomi"
+msgstr "Заголовок"
+
+#: .\templates\inc_and_exp.html:48
+msgid "Chiqim turlari"
+msgstr "Типы расходов"
+
+#: .\templates\inc_and_exp.html:82
+msgid "Chiqim turi qo'shish"
+msgstr "Добавить тип расходов"
+
+#: .\templates\inc_and_exp.html:98 .\templates\inc_and_exp.html:130
+#: .\templates\index.html:146 .\templates\index.html:205
+msgid "Tasdiqlash"
+msgstr "Подтверждение"
+
+#: .\templates\inc_and_exp.html:114
+msgid "Kirim turi qo'shish"
+msgstr "Добавить тип дохода"
+
+#: .\templates\index.html:6
+msgid "Bosh sahifa"
+msgstr "Домашняя страница"
+
+#: .\templates\index.html:67 .\templates\index.html:162
+msgid "Kirim qo`shish"
+msgstr "Добавить доход"
+
+#: .\templates\index.html:74
+msgid "Qolgan summa"
+msgstr "Оставшийся остаток"
+
+#: .\templates\index.html:90 .\templates\index.html:109
+msgid "Chiqim qo`shish"
+msgstr "добавить расходы"
+
+#: .\templates\index.html:93
+msgid "Hamyonlaringizda pul qolmagan"
+msgstr "В ваших кошельках не осталось денег"
+
+#: .\templates\index.html:118 .\templates\index.html:172
+msgid "Hamyonni tanlang"
+msgstr "Выберите кошелек"
+
+#: .\templates\index.html:128
+msgid "Chiqim"
+msgstr "Расход"
+
+#: .\templates\index.html:137 .\templates\index.html:195
+msgid "+"
+msgstr ""
+
+#: .\templates\index.html:141 .\templates\index.html:199
+msgid "Miqdori"
+msgstr "сумму"
+
+#: .\templates\index.html:142
+msgid "Chiqim miqdorini kiriting"
+msgstr "Введите сумму расходов"
+
+#: .\templates\index.html:181
+msgid "Hamyonlar mavjud emas! Qo'shish uchun ->"
+msgstr "Кошельки недоступны! для добавления ->"
+
+#: .\templates\index.html:182
+msgid "bosing"
+msgstr "нажимать"
+
+#: .\templates\index.html:186
+msgid "Kirim"
+msgstr "Доход"
+
+#: .\templates\index.html:200
+msgid "Kirim miqdorini kiriting"
+msgstr "Введите сумму дохода"
+
+#: .\templates\index.html:222 .\templates\monthly_expenses.html:24
+#: .\templates\selected_day.html:24 .\templates\weekly_expenses.html:24
+msgid "Bugungi hisobotlar"
+msgstr "Сегодняшние отчеты"
+
+#: .\templates\index.html:227 .\templates\monthly_expenses.html:29
+#: .\templates\selected_day.html:29 .\templates\weekly_expenses.html:29
+msgid "Haftalik hisobotlar"
+msgstr "Еженедельные отчеты"
+
+#: .\templates\index.html:232 .\templates\monthly_expenses.html:34
+#: .\templates\selected_day.html:34 .\templates\weekly_expenses.html:34
+msgid "Oylik hisobotlar"
+msgstr "Ежемесячные отчеты"
+
+#: .\templates\index.html:238 .\templates\monthly_expenses.html:40
+#: .\templates\selected_day.html:40 .\templates\weekly_expenses.html:40
+msgid "Tanlangan kun uchun hisobotlar"
+msgstr "Отчеты за выбранный день"
+
+#: .\templates\index.html:249
+msgid "Bugungi kirimlar"
+msgstr "Сегодняшний доход"
+
+#: .\templates\index.html:253 .\templates\index.html:289
+#: .\templates\monthly_expenses.html:53 .\templates\monthly_expenses.html:91
+#: .\templates\selected_day.html:53 .\templates\selected_day.html:97
+#: .\templates\weekly_expenses.html:53 .\templates\weekly_expenses.html:91
+msgid "Kategoriya"
+msgstr "Категория"
+
+#: .\templates\index.html:254 .\templates\index.html:290
+#: .\templates\monthly_expenses.html:54 .\templates\monthly_expenses.html:92
+#: .\templates\selected_day.html:54 .\templates\selected_day.html:98
+#: .\templates\weekly_expenses.html:54 .\templates\weekly_expenses.html:92
+msgid "Miqdor"
+msgstr "Количество"
+
+#: .\templates\index.html:255 .\templates\index.html:291
+#: .\templates\monthly_expenses.html:55 .\templates\monthly_expenses.html:93
+#: .\templates\selected_day.html:55 .\templates\selected_day.html:99
+#: .\templates\wallets.html:33 .\templates\wallets.html:76
+#: .\templates\weekly_expenses.html:55 .\templates\weekly_expenses.html:93
+msgid "Valyuta"
+msgstr "Валюта"
+
+#: .\templates\index.html:265 .\templates\index.html:301
+#: .\templates\monthly_expenses.html:66 .\templates\monthly_expenses.html:104
+#: .\templates\selected_day.html:66 .\templates\selected_day.html:110
+#: .\templates\weekly_expenses.html:66 .\templates\weekly_expenses.html:104
+msgid "Yangi hamyon yaratildi"
+msgstr "Создан новый кошелек"
+
+#: .\templates\index.html:285
+msgid "Bugungi chiqimlar"
+msgstr "Сегодняшние расходы"
+
+#: .\templates\index.html:326 .\templates\index.html:332
+#: .\templates\index.html:337 .\templates\monthly_expenses.html:131
+#: .\templates\monthly_expenses.html:137 .\templates\monthly_expenses.html:142
+#: .\templates\selected_day.html:143 .\templates\selected_day.html:154
+#: .\templates\weekly_expenses.html:131 .\templates\weekly_expenses.html:137
+#: .\templates\weekly_expenses.html:142
+msgid "O\\"
+msgstr "Вы хотите удалить?"
+
+#: .\templates\index.html:335 .\templates\monthly_expenses.html:140
+#: .\templates\profile.html:202 .\templates\selected_day.html:152
+#: .\templates\wallets.html:88 .\templates\wallets.html:109
+#: .\templates\wallets.html:158 .\templates\weekly_expenses.html:140
+msgid "Bekor qilish"
+msgstr "Отмена"
+
+#: .\templates\index.html:365
+msgid "Assalomu alaykum! Xush kelibsiz"
+msgstr "Привет! Добро пожаловать"
+
+#: .\templates\index.html:366
+msgid "Saytimizga xush kelibsiz"
+msgstr "Добро пожаловать на наш сайт"
+
+#: .\templates\index.html:367
+msgid "Biz bilan pullaringizni boshqaring"
+msgstr "Управляйте своими деньгами вместе с нами"
+
+#: .\templates\index.html:369
+msgid "Bizda quyidagi xizmatlar mavjud"
+msgstr "У нас есть следующие услуги"
+
+#: .\templates\index.html:371
+msgid "Hamyonlar boshqarish"
+msgstr "Управление кошельками"
+
+#: .\templates\index.html:372
+msgid "Kirimlarni kiritish va boshqarish"
+msgstr "Добавляйте и управляйте расходами"
+
+#: .\templates\index.html:373
+msgid "Chiqimlarni kiritish va boshqarish"
+msgstr "Ввод и управление затратами"
+
+#: .\templates\index.html:375
+msgid "Hisobotlar"
+msgstr "Отчеты"
+
+#: .\templates\index.html:377
+msgid "Kunlik"
+msgstr "Ежедневно"
+
+#: .\templates\index.html:378
+msgid "Haftalik"
+msgstr "Еженедельно"
+
+#: .\templates\index.html:379
+msgid "Oylik"
+msgstr "Ежемесячно"
+
+#: .\templates\index.html:380
+msgid "Yillik"
+msgstr "Ежегодно"
+
+#: .\templates\index.html:385
+msgid "Xizmatlarimizdan foydalanish uchun tizimga kiring"
+msgstr "Войдите, чтобы воспользоваться нашими услугами"
+
+#: .\templates\index.html:386
+msgid "Login"
+msgstr "Авторизоваться"
+
+#: .\templates\index.html:387
+msgid "yoki"
+msgstr "или"
+
+#: .\templates\monthly_expenses.html:46 .\templates\weekly_expenses.html:46
+msgid "dan"
+msgstr "от"
+
+#: .\templates\monthly_expenses.html:46 .\templates\weekly_expenses.html:46
+msgid "gacha"
+msgstr "до"
+
+#: .\templates\monthly_expenses.html:49 .\templates\weekly_expenses.html:49
+msgid "Haftalik kirimlar"
+msgstr "Еженедельные доходы"
+
+#: .\templates\monthly_expenses.html:56 .\templates\monthly_expenses.html:94
+#: .\templates\selected_day.html:56 .\templates\selected_day.html:100
+#: .\templates\weekly_expenses.html:56 .\templates\weekly_expenses.html:94
+msgid "Vaqt"
+msgstr "Дата"
+
+#: .\templates\monthly_expenses.html:87 .\templates\weekly_expenses.html:87
+msgid "Haftalik chiqimlar"
+msgstr "Еженедельные расходы"
+
+#: .\templates\profile.html:5
+msgid "Hisob"
+msgstr "Счет"
+
+#: .\templates\profile.html:138 .\templates\profile.html:201
+msgid "Chiqish"
+msgstr "Выход"
+
+#: .\templates\profile.html:151
+msgid "Hozirgi balans"
+msgstr "Текущий баланс"
+
+#: .\templates\profile.html:184
+msgid "Hisobdan chiqish"
+msgstr "выход"
+
+#: .\templates\profile.html:195
+msgid "Hisobdan chiqishni tasdiqlaysizmi?"
+msgstr "Подтвердить выход?"
+
+#: .\templates\selected_day.html:49
+#| msgid "Tanlangan kun uchun hisobotlar"
+msgid "Tanlangan kun kirimlar"
+msgstr "доходы за выбранный день"
+
+#: .\templates\selected_day.html:84 .\templates\selected_day.html:128
+msgid "ma`lumot mavjud emas"
+msgstr "Кошельки недоступны"
+
+#: .\templates\selected_day.html:93
+#| msgid "Tanlangan kun uchun hisobotlar"
+msgid "Tanlangan kun chiqimlar"
+msgstr "расходы за выбранный день"
+
+#: .\templates\selected_day.html:149
+#, fuzzy
+#| msgid "Hisobdan chiqishni tasdiqlaysizmi?"
+msgid "O`chirishni xoxlaysizmi?"
+msgstr "Подтвердить выход?"
+
+#: .\templates\wallets.html:31 .\templates\wallets.html:67
+#: .\templates\wallets.html:141
+msgid "Hamyon nomi"
+msgstr "Название кошелька"
+
+#: .\templates\wallets.html:32 .\templates\wallets.html:71
+#: .\templates\wallets.html:145
+msgid "Pul miqdori"
+msgstr "Количество денег"
+
+#: .\templates\wallets.html:34
+msgid "Amallar"
+msgstr "Действия"
+
+#: .\templates\wallets.html:59
+msgid "Hamyonni tahrirlash"
+msgstr "Изменить кошелек"
+
+#: .\templates\wallets.html:68
+msgid "masalan, uzcard"
+msgstr "например, извините"
+
+#: .\templates\wallets.html:87
+msgid "Saqlash"
+msgstr "сохранить"
+
+#: .\templates\wallets.html:101
+msgid "Hamyonni o`chirish"
+msgstr "Удалить кошелек"
+
+#: .\templates\wallets.html:107
+msgid "Hamyonni o`chirasizmi?"
+msgstr "Удалить кошелек?"
+
+#: .\templates\wallets.html:108
+msgid "O`chirish"
+msgstr "удалить"
+
+#: .\templates\wallets.html:117
+msgid "Hamyonlar mavjud emas"
+msgstr "Кошельки недоступны"
+
+#: .\templates\wallets.html:124
+msgid "Hamyon qo\\"
+msgstr "Добавить кошелек"
+
+#: .\templates\wallets.html:133
+msgid "Hamyon qo'shish"
+msgstr "Добавить кошелек"
+
+#: .\templates\wallets.html:142
+msgid "masalan, uzcard, visa"
+msgstr "например, uzcard, виза"
+
+#: .\templates\wallets.html:150
+msgid "Valyutani tanlang"
+msgstr "Выберите валюту"
+
+#: .\templates\wallets.html:157
+msgid "Qo'shish"
+msgstr "добавить"
+
+#~ msgid "Home"
+#~ msgstr "Главная"
